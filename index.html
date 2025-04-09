@@ -45,12 +45,6 @@
       display: none;
     }
 
-    #moon {
-      width: 200px;
-      image-rendering: pixelated;
-      margin-top: 20px;
-    }
-
     .cursor {
       display: inline-block;
       animation: blink 1s infinite;
@@ -76,12 +70,9 @@
     <button class="button" onclick="handleChoice(false)">Not Yet</button>
   </div>
 
-  <img id="moon" src="https://raw.githubusercontent.com/Arks-Layer/PSO2ENPatchCSV/master/launcher/graphics/pixelmoon.png" class="hidden" alt="Pixel Moon">
-
   <script>
     const dialogue = document.getElementById("dialogue");
     const choices = document.getElementById("choices");
-    const moon = document.getElementById("moon");
 
     const typingSound = new Audio("typewriter.mp3");
     typingSound.volume = 0.3;
@@ -198,9 +189,7 @@ One last thing...
       } else if (currentStep === 1) {
         paragraphs = splitIntoParagraphs(confession);
         currentStep++;
-        showParagraphs(paragraphs, 0, () => {
-          moon.classList.remove("hidden");
-        });
+        showParagraphs(paragraphs, 0);
       }
     }
 
