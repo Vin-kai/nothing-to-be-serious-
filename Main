@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Too Late in the Canyon</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Press Start 2P', cursive;
+      padding: 30px;
+      image-rendering: pixelated;
+      font-size: 12px;
+      line-height: 1.8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: left;
+      flex-direction: column;
+    }
+
+    #dialogue {
+      max-width: 800px;
+      white-space: pre-wrap;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 20px 10px;
+      padding: 10px 20px;
+      background-color: #444;
+      color: #fff;
+      border: 2px solid #fff;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #666;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #moon {
+      width: 200px;
+      image-rendering: pixelated;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<audio id="bgMusic" autoplay loop>
+  <source src="videoplayback.webm" type="audio/webm">
+  Your browser does not support the audio element.  
+</audio>
+
+<div id="dialogue"></div>
+
+<div id="choices" class="hidden">
+  <button class="button" onclick="handleChoice(true)">Ready</button>
+  <button class="button" onclick="handleChoice(false)">Not Yet</button>
+</div>
+
+<img id="moon" src="https://i.ibb.co/z6XrDKq/pixel-moon.png" class="hidden" alt="Pixel Moon">
+
+<script>
+  const dialogue = document.getElementById("dialogue");
+  const choices = document.getElementById("choices");
+  const moon = document.getElementById("moon");
+
+  const intro = `Omg HIII, sorry like super random and late na but like I just had to message you ‘cause I have story and I swear, you're gonna love this storyyy—like, I just KNOW it’s your vibe, promise!! Sobrang random but like worth it, swear.\n\nReady ka na ba?`;
+
+  const story = `
+[Song: *Lihim* by Arthur Miguel plays softly in the background...]
+
+Too Late in the Canyon
+
+Sa Canyon High, walang fairy tale. At least yun ang palusot ni Eli tuwing kinikilig siya kay Nina—yung babaeng laging may dalang sketchbook, laging hindi nakatali ang sintas ng sapatos, at laging may kantang hina-hum na parang siya lang ang nakakaalam.
+
+Crush niya si Nina simula pa ng unang araw ng sophomore year. Humiram lang ito ng ballpen sa kanya noon, at literal na hindi siya nakapagsalita. Tango lang siya ng tango habang iniabot ang pen.
+
+Dalawang taon na ang lumipas. Wala pa rin siyang nasasabi. Tinitingnan niya lang ito mula sa malayo. Kabado. Tahimik. Para bang sapat na ang makita lang niya ito masaya.
+
+Araw-araw sinasabi niya sa sarili, “Bukas na lang. Bukas ko na siya kakausapin.” Pero laging mas nakakatakot ang bukas.
+
+Isang hapon ng Biyernes, habang naggo-golden hour ang araw sa canyon sa likod ng school, andun si Eli. Umupo siya sa may batuhan, tahimik lang, pinapanood ang langit habang unti-unting nagiging orange ang paligid.
+
+Andun din si Nina. Pero may kasama. Si Chris.
+
+Hindi masyado napapansin ni Eli si Chris dati. Matangkad. Confident. Yung tipo ng lalakeng hindi natatakot sabihin ang gusto niya. At nangyari na.
+
+Hinawakan ni Nina ang kamay ni Chris. Hinawakan din siya nito pabalik. Nagngitian sila. Umayos ng upo si Nina, isinandal ang ulo niya sa balikat ni Chris.
+
+Parang may gumuhit sa dibdib ni Eli. Gusto niyang bumalik sa oras. Gusto niyang sabihing “Ako dapat ‘yan.” Pero wala siyang nasabi. Wala siyang ginawa. Tumingin na lang siya sa malayo.
+
+Hanggang may boses na tumawag sa likod niya.
+
+“Hey, Eli,” sabi ni Nina.
+
+Lumingon siya. Pilit ang ngiti. “Hey.”
+
+Umupo si Nina sa tabi niya. Malapit—pero hindi na katulad dati.
+
+“May sasabihin sana ako,” mahina niyang sabi. “Alam mo, dati, akala ko… baka gusto mo rin ako. Tahimik ka lang lagi, pero sweet. I used to hope na kakausapin mo ako more.”
+
+Tumigil ang mundo ni Eli. “Talaga?”
+
+Tumango si Nina, hindi siya tinitingnan. “Pero... hindi naman nangyari. So, I stopped waiting.”
+
+Tahimik.
+
+“Gusto ko si Chris,” dagdag niya. “He makes things feel simple. Hindi ko kailangan maghintay.”
+
+Parang nalaglag si Eli sa canyon kahit nakaupo lang siya.
+
+“Masaya ako para sa’yo,” sagot niya. Kahit alam niyang hindi totoo.
+
+Ngumiti si Nina. Tumayo, saka bumalik kay Chris.
+
+At naiwan si Eli. Tahimik. Gabi na. Wala nang araw.
+
+Doon niya na-realize—hindi pala ang pinaka-nakakatakot yung mag-confess. Ang totoo, mas nakakatakot yung tumahimik ka hanggang sa wala ka nang chance.
+
+---
+
+Now for the important part... or maybe the *kilig* part.
+
+Are you ready to unveil the message behind this?
+`;
+
+  const confession = `
+So... I've been thinking this for weeks now... no, almost a month now.
+
+I hope you still see me the same if I say this...
+
+I like you... I mean it.
+
+Sana naman hindi to kumalat hehe...
+
+I really don’t need an answer right now.
+
+One last thing...
+
+(The moon is beautiful, isn’t it?)
+`;
+
+  let index = 0;
+  let textToDisplay = "";
+  let currentStep = 0;
+
+  function typeWriter(text, callback) {
+    if (index < text.length) {
+      dialogue.innerHTML += text.charAt(index);
+      index++;
+      setTimeout(() => typeWriter(text, callback), 30);
+    } else {
+      if (callback) callback();
+    }
+  }
+
+  function showChoices() {
+    choices.classList.remove("hidden");
+  }
+
+  function handleChoice(ready) {
+    choices.classList.add("hidden");
+    if (ready) {
+      nextStep();
+    } else {
+      dialogue.innerHTML += "\n\nOkay, take your time...";
+      setTimeout(() => {
+        dialogue.innerHTML += "\n\nAre you ready now?";
+        choices.classList.remove("hidden");
+      }, 10000);
+    }
+  }
+
+  function nextStep() {
+    index = 0;
+    dialogue.innerHTML = "";
+    if (currentStep === 0) {
+      textToDisplay = story;
+      currentStep++;
+      typeWriter(textToDisplay, showChoices);
+    } else if (currentStep === 1) {
+      textToDisplay = confession;
+      currentStep++;
+      typeWriter(textToDisplay, () => {
+        moon.classList.remove("hidden");
+      });
+    }
+  }
+
+  // Start typing the intro
+  textToDisplay = intro;
+  typeWriter(textToDisplay, showChoices);
+</script>
+
+</body>
+</html>
