@@ -67,12 +67,13 @@
 
   <div id="choices" class="hidden">
     <button class="button" onclick="handleChoice(true)">Ready</button>
-    <button class="button" onclick="handleChoice(false)">Not Yet</button>
+    <button class="button" id="notYetButton" onclick="moveNotYet()">Not Yet</button>
   </div>
 
   <script>
     const dialogue = document.getElementById("dialogue");
     const choices = document.getElementById("choices");
+    const notYetButton = document.getElementById("notYetButton");
 
     const typingSound = new Audio("typewriter.mp3");
     typingSound.volume = 0.3;
@@ -83,52 +84,14 @@ Are you ready to move on?`;
 
     const story = `Unspoken Words
 
-In a small town nestled in the mountains of Japan, two childhood friends, Haruto and Aiko, grew up together, sharing everything from school projects to silly secrets. They had always been inseparable—two sides of the same coin. However, as they entered their final year of high school, something began to shift in Haruto’s heart. He realized that his feelings for Aiko had grown beyond friendship.
-
-Every time Aiko smiled at him or laughed at his jokes, a fluttering warmth filled his chest. But Haruto was terrified. Terrified that if he confessed his feelings, it might ruin everything. Their bond was too precious, and he couldn’t risk losing her, even if it meant hiding his emotions. So, he kept his love buried deep inside, pretending everything was normal.
-
-Aiko, on the other hand, had noticed the subtle changes in Haruto’s behavior. She sensed that he had grown distant, a little more reserved than usual. Yet, she didn't know why. What she didn't realize was that Haruto’s hesitance was rooted in the fear of rejection. She had secretly hoped that Haruto would someday tell her how he felt, but days turned into weeks, and weeks into months, and still, Haruto remained silent.
-
-Aiko began to feel the weight of waiting. She wondered if Haruto would ever see her as more than just a friend. Was she just imagining things? Was he just not interested? Eventually, the thought of waiting forever for something that might never come started to wear on her.
-
-One evening, as the sun set behind the hills, Aiko found herself talking to someone else—a kind and gentle classmate named Kaito. He had always been there for her, offering a kind word or a helping hand. Slowly, over time, their friendship blossomed into something more. They began spending time together after school, and Aiko found herself drawn to him, his warmth and attention filling the void that had once been reserved for Haruto.
-
-When Haruto finally realized what had happened, a pang of regret washed over him. He saw Aiko laughing with Kaito, her hand in his, and a feeling of deep sorrow settled in his heart. He had waited too long. He had been too afraid to confess, and now, someone else had claimed the place he had secretly longed for.
-
-It was only then that Haruto understood the consequences of his silence. He had been so scared of ruining their friendship that he had lost the chance to be with the person he cared about the most. His feelings for Aiko hadn’t changed, but now, it was too late.
-
-Aiko, noticing the sad look in Haruto’s eyes, walked up to him one afternoon. "Haruto," she said softly, "I... I thought you’d tell me how you felt. But I couldn’t wait forever. Kaito... he was there when I needed someone."
-
-Haruto looked at her, his heart breaking, but he could only smile bitterly. "I’m sorry, Aiko. I never wanted to hurt you. I was just too afraid."
-
-Aiko gently placed a hand on his shoulder. "You should’ve said something sooner. I waited, but sometimes, people move on when they feel they’re not enough for the other person."
-
-Haruto nodded, realizing the truth in her words. He had missed his chance.
-
-A few weeks later, Aiko and Kaito officially became a couple, and Haruto, though heartbroken, accepted the reality. He had learned that sometimes, silence could be louder than words, and that hesitation could cost you the most important thing in your life.
-
-As time passed, Haruto and Aiko’s friendship began to heal. Though it wasn’t the same, they still shared the bond they had grown up with. And in the quiet moments, Haruto would look at Aiko and Kaito together, his heart aching, but also thankful for the memories they shared, the love that was once there, and the lesson he had learned: sometimes, you have to be brave enough to speak your heart before it’s too late.
-
-...
-
-Now for the important part... or maybe the *kilig* part.
-
-Are you ready to unveil the message behind this?`;
-
+    In a small town nestled in the mountains of Japan, two childhood friends, Haruto and Aiko, grew up together, sharing everything from school projects to silly secrets. They had always been inseparable—two sides of the same coin. However, as they entered their final year of high school, something began to shift in Haruto’s heart. He realized that his feelings for Aiko had grown beyond friendship.`;
+    
     const confession = `So... I've been thinking this for weeks now... no, almost a month.
 
-I hope you still see me the same after I say this...
+    I hope you still see me the same after I say this...
 
-I like you. I mean it.
-
-Sana naman hindi to kumalat hehe...
-
-I really don’t need an answer right now.
-
-One last thing...
-
-(The moon is beautiful, isn’t it?)`;
-
+    I like you. I mean it.`;
+    
     let paragraphs = [];
     let currentStep = 0;
 
@@ -191,6 +154,20 @@ One last thing...
         currentStep++;
         showParagraphs(paragraphs, 0);
       }
+    }
+
+    function moveNotYet() {
+      // Get random positions within the window
+      const maxX = window.innerWidth - notYetButton.offsetWidth;
+      const maxY = window.innerHeight - notYetButton.offsetHeight;
+      
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      // Set new position
+      notYetButton.style.position = 'absolute';
+      notYetButton.style.left = `${randomX}px`;
+      notYetButton.style.top = `${randomY}px`;
     }
 
     // Start with intro
