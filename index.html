@@ -1,76 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Too Late in the Canyon</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Press Start 2P', cursive;
-      padding: 30px;
-      image-rendering: pixelated;
-      font-size: 12px;
-      line-height: 1.8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: left;
-      flex-direction: column;
-    }
+<script>
+  const targetDate = new Date("2025-04-28T17:00:00"); // April 28, 2025 at 5:00 PM
 
-    #dialogue {
-      max-width: 800px;
-      white-space: pre-wrap;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    .button {
-      display: inline-block;
-      margin: 20px 10px;
-      padding: 10px 20px;
-      background-color: #444;
-      color: #fff;
-      border: 2px solid #fff;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      background-color: #666;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .cursor {
-      display: inline-block;
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-  </style>
-</head>
-<body>
-
-  <audio id="bgMusic" autoplay loop>
-    <source src="videoplayback.webm" type="audio/webm">
-    Your browser does not support the audio element.
-  </audio>
-
-  <div id="dialogue"></div>
-
-  <div id="choices" class="hidden">
-    <button class="button" onclick="handleChoice(true)">Ready</button>
-    <button class="button" id="notYetButton" onclick="moveNotYet()">Not Yet</button>
-  </div>
-
-  <script>
+  const now = new Date();
+  if (now < targetDate) {
+    document.body.innerHTML = `
+      <div style="text-align: center; font-family: 'Press Start 2P', cursive; padding: 50px;">
+        <p>It's not time yet.</p>
+        <p>Please come back on <strong>April 28, 2025 at 5:00 PM</strong>.</p>
+      </div>
+    `;
+  } else {
+    // original script content here
     const dialogue = document.getElementById("dialogue");
     const choices = document.getElementById("choices");
     const notYetButton = document.getElementById("notYetButton");
@@ -157,14 +97,12 @@ Are you ready to move on?`;
     }
 
     function moveNotYet() {
-      // Get random positions within the window
       const maxX = window.innerWidth - notYetButton.offsetWidth;
       const maxY = window.innerHeight - notYetButton.offsetHeight;
       
       const randomX = Math.random() * maxX;
       const randomY = Math.random() * maxY;
 
-      // Set new position
       notYetButton.style.position = 'absolute';
       notYetButton.style.left = `${randomX}px`;
       notYetButton.style.top = `${randomY}px`;
@@ -173,7 +111,5 @@ Are you ready to move on?`;
     // Start with intro
     paragraphs = splitIntoParagraphs(intro);
     showParagraphs(paragraphs, 0, showChoices);
-  </script>
-
-</body>
-</html>
+  }
+</script>
